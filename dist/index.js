@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var dotenv_1 = __importDefault(require("dotenv"));
+var mongoose_1 = __importDefault(require("mongoose"));
 // dotenv configure
 dotenv_1.default.config();
 var app = (0, express_1.default)();
@@ -12,8 +13,14 @@ var PORT = process.env.PORT || 4000;
 app.get('/', function (req, res) {
     res.cookie('abc', 'hello');
     res.status(200).send("Hello bangladesh");
-    res.clearCookie('abc');
 });
 app.listen(PORT, function () {
     console.log("Server is running on http://localhost:".concat(PORT));
+    mongoose_1.default.connect('mongodb://localhost:27017')
+        .then(function () {
+        console.log('Database conneted  success');
+    })
+        .catch(function (err) {
+        console.log(err.message);
+    });
 });

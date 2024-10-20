@@ -16,7 +16,14 @@ app.get('/',(req:Request,res:Response)=>{
 })
 
 
-console.log("Hello")
 app.listen(PORT,()=>{
-    console.log(`Server is running on http://localhost:${PORT}`)
+    console.log(`Server is running on http://localhost:${PORT}`);
+    mongoose.connect('mongodb://localhost:27017')
+   .then(()=>{
+    console.log('Database conneted  success')
+   })
+   .catch(err=>{
+    console.log(err.message)
+})
+    
 })
